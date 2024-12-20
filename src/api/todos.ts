@@ -15,5 +15,5 @@ export const addTodo = (newTodo: Omit<Todo, 'id' | 'userId'>) => {
 };
 
 export const deleteTodo = (todoId: number) => {
-  return client.delete(`/todos/${todoId}?userId=${USER_ID}`);
+  return client.delete(`/todos/${todoId}`);
 };

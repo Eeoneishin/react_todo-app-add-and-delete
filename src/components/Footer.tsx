@@ -1,24 +1,20 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 import { Todo } from '../types/Todo';
 import { Filters } from '../types/Filtres';
 import { FilterButton } from './FilterButton';
-// import { FilterButton } from './FilterButton';
 
 type Props = {
   currentFilter: Filters;
   setCurrentFilter: Dispatch<SetStateAction<Filters>>;
   todos: Todo[];
-  setTodos: Dispatch<SetStateAction<Todo[]>>;
+  handleClearCompleted: MouseEventHandler<HTMLButtonElement>;
 };
 
 export const Footer: React.FC<Props> = props => {
-  const { todos, setTodos, currentFilter, setCurrentFilter } = props;
+  const { todos, currentFilter, setCurrentFilter, handleClearCompleted } =
+    props;
 
   const activeTodos = todos.filter(todo => !todo.completed).length;
-
-  const handleClearCompleted = () => {
-    setTodos(todos.filter(todo => !todo.completed));
-  };
 
   return (
     <footer className="todoapp__footer" data-cy="Footer">

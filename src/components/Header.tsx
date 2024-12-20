@@ -1,18 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ErrorType } from '../types/ErrorType';
 
 type Props = {
   onAddTodo: (value: string) => Promise<void>;
   setErrorMessage: React.Dispatch<React.SetStateAction<ErrorType>>;
+  inputRef: React.RefObject<HTMLInputElement>;
 };
 
 export const Header: React.FC<Props> = props => {
-  const { onAddTodo, setErrorMessage } = props;
+  const { onAddTodo, setErrorMessage, inputRef } = props;
 
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,13 +37,7 @@ export const Header: React.FC<Props> = props => {
     if (!isLoading && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+  }, [inputRef, isLoading]);
 
   return (
     <header className="todoapp__header">
